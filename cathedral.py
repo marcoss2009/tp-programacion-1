@@ -1,13 +1,13 @@
+# Imports
+import clientes
+import vendedores
+import operaciones
+import login
+    
 def main():
-    # Imports
-    import clientes
-    import vendedores
-    import operaciones
-    import login
-
-    vendedores = []
-    clientes = []
-    operaciones = []
+    vendedores_lista = []
+    clientes_lista = []
+    operaciones_lista = []
 
     print(" Cathedral Software ".center(80,'-'))
     
@@ -47,6 +47,6 @@ def main():
 
     if (opcion == 6):
         operaciones.menuCuentasCorrientes()
-        
+
 if __name__ == "__main__":
     main()
