@@ -10,8 +10,8 @@ def main():
     vendedoresLista = ["usuario1", "usuario2", "usuario3", "usuario4"]
     claves = ["1234", "5678", "9012", "3456"]
 
-    clientesLista = [1000, 1001, 1002, 1003, 1004]
-    saldos = [0, 0, 0, 0, 0]
+    clientesLista = []
+    saldos = []
 
     operacionesLista = []
     
@@ -44,6 +44,9 @@ def main():
             operaciones.menuCuentasCorrientes()
 
         opcion = menu.mainMenu()
+
+    print(" Gracias por utilizar Cathedral Software ".center(80, '-'))
+    print(" π".rjust(80, '-'))
 
 if __name__ == "__main__":
     main()
