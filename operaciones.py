@@ -42,7 +42,9 @@ def menuOperaciones(operaciones, vendedores, clientes, saldos):
 
 def menuMovimientos(lista, vendedores, clientes):
     print("4. Consulta de Movimientos")
+     #len para saber la cantidad de filas que tiene la lista
     i= len(lista)-1
+    #para recorrer la lista de forma descendente
     while i !=-1:
         print("cliente: ",clientes[lista[i][0]])
         print("vendedor: ",vendedores[lista[i][1]])
@@ -60,11 +62,14 @@ def menuMovimientos(lista, vendedores, clientes):
 def menuCuentasCorrientes(lista, vendedores, clientes):
     print("6. Consulta de Cuentas Corrientes por Operación")
     operacion = int(input("Ingrese 0 para transacciones de recibo o 1 para transacciones de factura: "))
+    # digitar 1 para pedir factura o 0 para pedir recibo
     while operacion < 0 or operacion > 1:
         operacion = int(input("Ingrese 0 para transacciones de recibo o 1 para transacciones de factura: "))
     operacion = bool(operacion)
     i= len(lista)-1
+    #while para recorrer la lista de forma descendente
     while i !=-1:
+        #solo muestro las filas que me coinciden con 1 para factura o 0 para recibo
         if lista[i][4]== operacion:
             print("cliente: ",clientes[lista[i][0]])
             print("vendedor: ",vendedores[lista[i][1]])
@@ -76,6 +81,7 @@ def menuCuentasCorrientes(lista, vendedores, clientes):
                 print("tipo de operacion: Recibo")
         
             print("-------------------------------")
+        #fila-1
         i= i-1
     
 def comprobarObtenerCliente(cliente, clientes):
