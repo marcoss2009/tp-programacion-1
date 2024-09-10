@@ -35,13 +35,13 @@ def main():
             clientes.menuConsultaClientes(clientesLista, saldos, operacionesLista, vendedoresLista)
 
         if (opcion == 4):
-            operaciones.menuMovimientos(operacionesLista)
+            operaciones.menuMovimientos(operacionesLista,vendedoresLista, clientesLista)
 
         if (opcion == 5):
             vendedores.menuVendedores()
 
         if (opcion == 6):
-            operaciones.menuCuentasCorrientes(operacionesLista)
+            operaciones.menuCuentasCorrientes(operacionesLista,vendedoresLista, clientesLista)
 
         opcion = menu.mainMenu()
 

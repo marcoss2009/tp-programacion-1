@@ -40,12 +40,44 @@ def menuOperaciones(operaciones, vendedores, clientes, saldos):
         # Es un recibo, restamos
         saldos[clienteID] = saldos[clienteID] - monto
 
-def menuMovimientos():
+def menuMovimientos(lista, vendedores, clientes):
     print("4. Consulta de Movimientos")
+    i= len(lista)-1
+    while i !=-1:
+        print("cliente: ",clientes[lista[i][0]])
+        print("vendedor: ",vendedores[lista[i][1]])
+        print("codigo de operacion: ",lista[i][2])
+        print("monto de operacion: ",lista[i][3])
+        if lista[i][4]== True:
+            print("tipo de operación: Factura")
+        else:
+            print("tipo de operacion: Recibo")
+        
+        print("-------------------------------")
+        i= i-1
+            
 
-def menuCuentasCorrientes():
+def menuCuentasCorrientes(lista, vendedores, clientes):
     print("6. Consulta de Cuentas Corrientes por Operación")
-
+    operacion = int(input("Ingrese 0 para transacciones de recibo o 1 para transacciones de factura: "))
+    while operacion < 0 or operacion > 1:
+        operacion = int(input("Ingrese 0 para transacciones de recibo o 1 para transacciones de factura: "))
+    operacion = bool(operacion)
+    i= len(lista)-1
+    while i !=-1:
+        if lista[i][4]== operacion:
+            print("cliente: ",clientes[lista[i][0]])
+            print("vendedor: ",vendedores[lista[i][1]])
+            print("codigo de operacion: ",lista[i][2])
+            print("monto de operacion: ",lista[i][3])
+            if lista[i][4]== True:
+                print("tipo de operación: Factura")
+            else:
+                print("tipo de operacion: Recibo")
+        
+            print("-------------------------------")
+        i= i-1
+    
 def comprobarObtenerCliente(cliente, clientes):
     indice = -1
 
