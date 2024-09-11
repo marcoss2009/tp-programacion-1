@@ -26,22 +26,22 @@ def main():
     while (opcion != 7):
         # Can be a switch?
         if (opcion == 1):
-            clientes.menuIngresoClientes()
+            clientes.menuIngresoClientes(clientesLista, saldos)
 
         if (opcion == 2):
             operaciones.menuOperaciones(operacionesLista, vendedoresLista, clientesLista, saldos)
 
         if (opcion == 3):
-            clientes.menuConsultaClientes()
+            clientes.menuConsultaClientes(clientesLista, saldos, operacionesLista, vendedoresLista)
 
         if (opcion == 4):
-            operaciones.menuMovimientos()
+            operaciones.menuMovimientos(operacionesLista,vendedoresLista, clientesLista)
 
         if (opcion == 5):
             vendedores.menuVendedores()
 
         if (opcion == 6):
-            operaciones.menuCuentasCorrientes()
+            operaciones.menuCuentasCorrientes(operacionesLista,vendedoresLista, clientesLista)
 
         opcion = menu.mainMenu()
 
