@@ -1,4 +1,4 @@
-def menuVendedores(vendedores,operaciones):
+def menuVendedores(vendedores,operaciones,clientes):
     print("5. Consulta de Cuentas Corrientes por Vendedor")
     vendedorBuscado = input("Ingrese el legajo del vendedor que desea buscar: ")
     indiceValidacion = validarVendedor(vendedores,vendedorBuscado)
@@ -34,11 +34,12 @@ def menuVendedores(vendedores,operaciones):
                     
     print(f"Vendedor: {vendedorBuscado}")
     for i in range(len(clienteLista)):
-        print(f"Cliente: {cliente[clienteLista[i]]}")
         if operacionesLista[i] == True:
             facturas = facturas + 1
         elif operacionesLista[i] == False:
             recibos = recibos + 1
+            
+        print(f"Cliente: {clientes[clienteLista[i]]}")
         print("cantidad de facturas: ",facturas)
         print("cantidad de recibos: ",recibos)
         print(f"Saldo total del cliente: ${saldoLista[i]}")
