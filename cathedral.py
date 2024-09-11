@@ -8,7 +8,7 @@ import menu
 def main():
     # Listas
     vendedoresLista = ["usuario1", "usuario2", "usuario3", "usuario4"]
-    claves = ["1234", "5678", "9012", "3456"]
+    claves = [1234, 5678, 9012, 3456]
 
     clientesLista = []
     saldos = []
@@ -18,7 +18,7 @@ def main():
     print(" Cathedral Software ".center(80, '-'))
     
     # Ingreso al sistema
-    login.menuIngreso()
+    login.menuIngreso(vendedoresLista, claves)
 
     # Menú
     opcion = menu.mainMenu()
