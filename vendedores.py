@@ -1,6 +1,6 @@
 def menuVendedores(vendedores,operaciones,clientes):
     print("5. Consulta de Cuentas Corrientes por Vendedor")
-    vendedorBuscado = input("Ingrese el legajo del vendedor que desea buscar: ")
+    vendedorBuscado = input("Ingrese el vendedor que desea buscar: ")
     indiceValidacion = validarVendedor(vendedores,vendedorBuscado)
     while indiceValidacion == -1:
         vendedorBuscado = input("El vendedor ingresado no existe. Ingrese nuevamente: ")
