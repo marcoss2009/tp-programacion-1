@@ -2,15 +2,20 @@ def menuIngresoClientes(clientes, saldos):
     # Solicita al usuario que ingrese un legajo
     legajo = int(input("Ingrese un número de cliente: "))
     
-    # Verifica si el legajo ya existe en la lista de clientes
-    while legajo in clientes:
-        print("El cliente ya existe. Por favor, ingrese uno diferente.")
+    # Si legajo es -1 salimos del modulo
+    while legajo != -1:
+        # Verifica si el legajo ya existe en la lista de clientes
+        while legajo in clientes:
+            print("El cliente ya existe. Por favor, ingrese uno diferente.")
+            legajo = int(input("Ingrese un número de cliente: "))
+        
+        # Si el legajo no existe, lo añade a la lista de clientes y el saldo a la lista de saldos
+        clientes.append(legajo)
+        saldos.append(0)
+        print(" Cliente ingresado correctamente ".center(80, '-'))
+
+        # Solicita al usuario que ingrese un legajo
         legajo = int(input("Ingrese un número de cliente: "))
-    
-    # Si el legajo no existe, lo añade a la lista de clientes y el saldo a la lista de saldos
-    clientes.append(legajo)
-    saldos.append(0)
-    print("cliente ingresado correctamente.")
 
     
 
