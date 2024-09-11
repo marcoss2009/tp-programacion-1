@@ -10,10 +10,10 @@ def main():
     vendedoresLista = ["usuario1", "usuario2", "usuario3", "usuario4"]
     claves = ["1234", "5678", "9012", "3456"]
 
-    clientesLista = [1000,1001,1002,1003,1004]
-    saldos = [0,0,0,0,0]
+    clientesLista = []
+    saldos = []
 
-    operacionesLista = [[0,0,3455,100000,True],[1,0,3456,200000,True],[0,0,3457,50000,True],[0,1,2480,150000,False],[2,3,3458,20000,True],[4,1,3459,100000,True],[4,1,2481,25000,False],[1,0,2482,50000,False]]
+    operacionesLista = []
     
     print(" Cathedral Software ".center(80, '-'))
     
