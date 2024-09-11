@@ -15,7 +15,7 @@ def menuVendedores(vendedores,operaciones):
     for operacion in operaciones:
         cliente, vendedor, codigo, monto, tipo_operacion = operacion
         
-        if vendedor == vendedorBuscado:
+        if vendedor == indiceValidacion:
             if cliente not in clienteLista:
                 clienteLista.append(cliente)
                 saldo_inicial = monto if tipo_operacion == True else -monto
@@ -34,9 +34,14 @@ def menuVendedores(vendedores,operaciones):
                     
     print(f"Vendedor: {vendedorBuscado}")
     for i in range(len(clienteLista)):
-        print(f"Cliente: {clienteLista[i]}")
-        print(f"Operaciones: {operacionesLista[i]}")
-        print(f"Saldo total del cliente: {saldoLista[i]}")
+        print(f"Cliente: {cliente[clienteLista[i]]}")
+        if operacionesLista[i] == True:
+            facturas = facturas + 1
+        elif operacionesLista[i] == False:
+            recibos = recibos + 1
+        print("cantidad de facturas: ",facturas)
+        print("cantidad de recibos: ",recibos)
+        print(f"Saldo total del cliente: ${saldoLista[i]}")
         print("-" * 30)
 
     
