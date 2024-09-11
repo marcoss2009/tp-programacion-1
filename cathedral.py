@@ -38,7 +38,7 @@ def main():
             operaciones.menuMovimientos(operacionesLista,vendedoresLista, clientesLista)
 
         if (opcion == 5):
-            vendedores.menuVendedores()
+            vendedores.menuVendedores(vendedoresLista,operacionesLista,clientesLista)
 
         if (opcion == 6):
             operaciones.menuCuentasCorrientes(operacionesLista,vendedoresLista, clientesLista)
