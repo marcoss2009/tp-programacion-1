@@ -32,18 +32,24 @@ def menuVendedores(vendedores,operaciones,clientes):
                 elif tipo_operacion == False:
                     saldoLista[indice_cliente] -= monto
                     
-    print(f"Vendedor: {vendedorBuscado}")
-    for i in range(len(clienteLista)):
-        if operacionesLista[i] == True:
-            facturas = facturas + 1
-        elif operacionesLista[i] == False:
-            recibos = recibos + 1
-            
-        print(f"Cliente: {clientes[clienteLista[i]]}")
-        print("cantidad de facturas: ",facturas)
-        print("cantidad de recibos: ",recibos)
-        print(f"Saldo total del cliente: ${saldoLista[i]}")
-        print("-" * 30)
+    print(f" Cuentas Corrientes del Vendedor: {vendedorBuscado} ".center(80, '-'))
+    if len(clienteLista) == 0:
+        print(" No hay movimientos para mostrar ".center(80, '-'))
+    else:
+        for i in range(len(clienteLista)):
+            facturas = 0
+            recibos = 0
+            for j in range(len(operacionesLista[i])):
+                if operacionesLista[i][j] == True:
+                    facturas = facturas + 1
+                elif operacionesLista[i][j] == False:
+                    recibos = recibos + 1
+                
+            print(f"Cliente: {clientes[clienteLista[i]]}")
+            print("cantidad de facturas: ",facturas)
+            print("cantidad de recibos: ",recibos)
+            print(f"Saldo total del cliente: ${saldoLista[i]}")
+            print("-" * 30)
 
     
 
