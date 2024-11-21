@@ -41,3 +41,14 @@ def menuConsultaClientes(clientes, saldos, operaciones, vendedores):
                 print("tipo de operacion:recibo")
     print("")
     print("saldo final del cliente: $",saldos[indice])
+
+# Comprobamos si un cliente existe
+# Pasamos la lista de clientes y el ID del cliente buscado
+# Devolvemos el índice del cliente
+def existeCliente(clientes, cliente):
+    clienteBuscado = -1
+
+    if cliente in clientes:
+        clienteBuscado = clientes.index(cliente)
+
+    return clienteBuscado
