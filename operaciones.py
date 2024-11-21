@@ -1,130 +1,166 @@
-def menuOperaciones(operaciones, vendedores, clientes, saldos):
+from vendedores import validarVendedor
+from clientes import existeCliente
+from tablas import crearTabla
+import terminal
+
+def cargaOperaciones(operacionesCliente, operacionesVendedor, operacionesOperacion, operacionesMonto, vendedoresLista, clientesLista, consolidados):
+    # Limpiamos la terminal
+    terminal.limpiarTerminal()
+
+    print(" Carga de Operaciones ".center(80,'-'))
+
     # No permitir la carga de operaciones si no existen clientes
-    if (len(clientes) > 0):
+    if (len(clientesLista) > 0):
         vendedor = input("Ingrese el usuario del vendedor: ")
 
-        # Si vendedor es -1 volvemos al programa principal
-        while vendedor != "-1":
-            # Comprobar vendedor
-            vendedorID = comprobarObtenerVendedor(vendedor, vendedores)
-            while vendedorID == -1:
-                vendedor = input("Vendedor inexistente. Ingrese el usuario del vendedor: ")
-                vendedorID = comprobarObtenerVendedor(vendedor, vendedores)
-            
-            cliente = int(input("Ingrese el código del cliente: "))
-            # Comprobar cliente
-            clienteID = comprobarObtenerCliente(cliente, clientes)
-            while clienteID == -1:
-                cliente = int(input("Cliente inexistente. Ingrese el código del cliente: "))
-                clienteID = comprobarObtenerCliente(cliente, clientes)
-            
+        # Comprobar vendedor
+        vendedorID = validarVendedor(vendedoresLista, vendedor)
+        while vendedorID == -1:
+            vendedor = input("Vendedor inexistente. Ingrese el usuario del vendedor: ")
+            vendedorID = validarVendedor(vendedoresLista, vendedor)
+        
+        cliente = int(input("Ingrese el código del cliente: "))
+        # Comprobar cliente
+        clienteID = existeCliente(clientesLista, cliente)
+        while clienteID == -1:
+            cliente = int(input("Cliente inexistente. Ingrese el código del cliente: "))
+            clienteID = existeCliente(clientesLista, cliente)
+        
+        operacion = int(input("Ingrese 0 si esta operación es un recibo o 1 si es una factura: "))
+        while operacion < 0 or operacion > 1:
             operacion = int(input("Ingrese 0 si esta operación es un recibo o 1 si es una factura: "))
-            while operacion < 0 or operacion > 1:
-                operacion = int(input("Ingrese 0 si esta operación es un recibo o 1 si es una factura: "))
-            operacion = bool(operacion)
+        operacion = bool(operacion)
 
-            codigo = int(input("Ingrese el código de la operación: "))
-            # Comprobar que el código no esté repetido
-            verificarCodigo = comprobarCodigo(codigo, operaciones)
-            while verificarCodigo == True:
-                codigo = int(input("El código ya existe en otra operación. Ingrese el código de la operación: "))
-                verificarCodigo = comprobarCodigo(codigo, operaciones)
-
+        monto = int(input("Ingrese el monto de la operación: "))
+        while monto <= 0:
             monto = int(input("Ingrese el monto de la operación: "))
-            while monto < 1:
-                monto = int(input("Ingrese el monto de la operación: "))
 
-            # Sumamos la operación en la matríz
-            operaciones.append([clienteID, vendedorID, codigo, monto, operacion])
+        # Guardamos la operación
+        operacionesCliente.append(clienteID)
+        operacionesVendedor.append(vendedorID)
+        operacionesOperacion.append(operacion)
+        operacionesMonto.append(monto)
 
-            # Sumamos o restamos el saldo al cliente
-            if (operacion == True):
-                # Es una factura, sumamos
-                saldos[clienteID] = saldos[clienteID] + monto
-            else:
-                # Es un recibo, restamos
-                saldos[clienteID] = saldos[clienteID] - monto
-            print(" Operación cargada correctamente ".center(80, '-'))
-            
-            # Vuelvo a pedir un vendedor
-            vendedor = input("Ingrese el usuario del vendedor: ")
+        # Actualizamos el saldo
+        # Si es factura restamos, si es recibo sumamos
+        if operacion == True:
+            consolidados[clienteID][vendedorID] = consolidados[clienteID][vendedorID] - monto
+        else:
+            consolidados[clienteID][vendedorID] = consolidados[clienteID][vendedorID] + monto
+
+        print(" Operación cargada correctamente ".center(80, '-'))
     else:
         print(" Error: Debe cargar al menos un cliente para comenzar a cargar operaciones ".center(80, '-'))
-
-def menuMovimientos(lista, vendedores, clientes):
-    print("4. Consulta de Movimientos")
-     #len para saber la cantidad de filas que tiene la lista
-    i= len(lista)-1
-    #para recorrer la lista de forma descendente
-    while i !=-1:
-        print("cliente: ",clientes[lista[i][0]])
-        print("vendedor: ",vendedores[lista[i][1]])
-        print("codigo de operacion: ",lista[i][2])
-        print("monto de operacion: ",lista[i][3])
-        if lista[i][4]== True:
-            print("tipo de operación: Factura")
-        else:
-            print("tipo de operacion: Recibo")
-        
-        print("-------------------------------")
-        i= i-1
-            
-
-def menuCuentasCorrientes(lista, vendedores, clientes):
-    print("6. Consulta de Cuentas Corrientes por Operación")
-    operacion = int(input("Ingrese 0 para transacciones de recibo o 1 para transacciones de factura: "))
-    # digitar 1 para pedir factura o 0 para pedir recibo
-    while operacion < 0 or operacion > 1:
-        operacion = int(input("Ingrese 0 para transacciones de recibo o 1 para transacciones de factura: "))
-    operacion = bool(operacion)
-    i= len(lista)-1
-    #while para recorrer la lista de forma descendente
-    while i !=-1:
-        #solo muestro las filas que me coinciden con 1 para factura o 0 para recibo
-        if lista[i][4]== operacion:
-            print("cliente: ",clientes[lista[i][0]])
-            print("vendedor: ",vendedores[lista[i][1]])
-            print("codigo de operacion: ",lista[i][2])
-            print("monto de operacion: ",lista[i][3])
-            if lista[i][4]== True:
-                print("tipo de operación: Factura")
-            else:
-                print("tipo de operacion: Recibo")
-        
-            print("-------------------------------")
-        #fila-1
-        i= i-1
     
-def comprobarObtenerCliente(cliente, clientes):
-    indice = -1
+    input("Presione Enter para continuar...")
 
-    # Comprobamos si el cliente existe y devolvemos su índice
-    if cliente in clientes:
-        indice = clientes.index(cliente)
+def cuentasCorrientesClientes(operacionesCliente, operacionesOperacion, operacionesMonto, clientesLista):
+    # Limpiamos la terminal
+    terminal.limpiarTerminal()
 
-    return indice
+    print(" Cuentas Corrientes por Clientes ".center(80,'-'))
 
-def comprobarObtenerVendedor(vendedor, vendedores):
-    indice = -1
+    # Si la lista de operaciones está vacía entoncés qué vamos a leer?
+    if (len(operacionesOperacion) > 0):
 
-    # Comprobamos si el vendedor existe y devolvemos su índice
-    if vendedor in vendedores:
-        indice = vendedores.index(vendedor)
+        cliente = int(input("Ingrese el código del cliente: "))
 
-    return indice
+        # Comprobar cliente
+        clienteID = existeCliente(clientesLista, cliente)
+        while clienteID == -1:
+            cliente = int(input("Cliente inexistente. Ingrese el código del cliente: "))
+            clienteID = existeCliente(clientesLista, cliente)
 
-def comprobarCodigo(codigo, operaciones):
-    indice = False
+        # Inicializamos las listas para imprimir la tabla
+        filas = []
+        columnas = ["Movimiento", "Debe", "Haber"] # Debe = Factura; Haber = Recibo
 
-    i = len(operaciones) - 1
+        # Totales
+        debe = 0
+        haber = 0
 
-    while i != -1:
-        if codigo in operaciones[i]:
-            # Existe en este índice, terminamos el recorrido
-            i = -1
-            indice = True
-        else:
-            # No existe en este índice, sigamos recorriendo la matríz
-            i = i - 1
+        '''''
+        Vamos a recorrer la lista de clientes
 
-    return indice
+        Si en algún momento algún registro nos coincide con el ID del cliente buscado
+        buscamos el resto de los paramétros de la operación en las otras listas. Al ser listas hermanadas
+        entoncés podemos utilizar el mismo índice.
+        '''''
+        for i in range(len(operacionesCliente)):
+            if operacionesCliente[i] == clienteID:
+                filas.append([("Factura" if operacionesOperacion[i] == True else "Recibo"), ("$" + str(operacionesMonto[i]) if operacionesOperacion[i] == True else ""), ("" if operacionesOperacion[i] == True else "$" + str(operacionesMonto[i]))])
+        
+            # Sumamos Debe o Haber
+            if operacionesOperacion[i] == True:
+                # Es una Factura, sumamos en Debe
+                debe = debe + operacionesMonto[i]
+            else:
+                # Es un Recibo, sumamos en Haner
+                haber = haber + operacionesMonto[i]
+
+        # Sumamos como última fila al total de debe y haber
+        filas.append(["Suma de Movimientos", "$" + str(debe), "$" + str(haber)])
+        filas.append(["", "Saldo Final: ", "$" + str(haber-debe)])
+
+        # Creamos la Tabla
+        crearTabla(columnas, filas)
+    else:
+        print(" Error: Debe cargar al menos una operación para visualizar Cuentas Corrientes ".center(80, '-'))
+    
+    input("Presione Enter para continuar...")
+
+def calcularTotalOperativo(consolidados):
+    # Limpiamos la terminal
+    terminal.limpiarTerminal()
+
+    print(" Total Operativo ".center(80,'-'))
+
+    # Si la matríz está vacía entoncés qué vamos a leer?
+    if (len(consolidados) > 0):
+        total = 0
+
+        # Recorremos toda la matríz
+        for i in range(len(consolidados)): # Cliente
+            for k in range(len(consolidados[i])): # Vendedor
+                total = total + consolidados[i][k]
+
+        # Definimos columna y fila para visualizar la tabla
+        columnas = ["Total Operativo"]
+        filas = [["$" + str(total)]]
+
+        # Creamos la Tabla
+        crearTabla(columnas, filas)
+    else:
+        print(" Error: Debe cargar al menos una operación para visualizar el Total Operativo ".center(80, '-'))
+    
+    input("Presione Enter para continuar...")
+
+def consultarMovimientos(operacionesCliente, operacionesVendedor, operacionesOperacion, operacionesMonto, vendedoresLista, clientesLista):
+    # Limpiamos la terminal
+    terminal.limpiarTerminal()
+
+    print(" Consulta de Movimientos ".center(80,'-'))
+
+    # Hay operaciones para mostrar?
+    if (len(operacionesCliente) > 0):
+        filtro = int(input("Ingrese 0 para filtrar por recibos, 1 para filtrar por facturas o 2 para mostrar todos los movimientos: "))
+        while filtro < 0 or filtro > 2:
+            filtro = int(input("Ingrese 0 para filtrar por recibos, 1 para filtrar por facturas o 2 para mostrar todos los movimientos: "))
+
+        columnas = ["Tipo de Movimiento", "Cliente", "Vendedor", "Monto"]
+        filas = []
+
+        # Recorremos
+        for i in range(len(operacionesCliente)):
+            if (filtro == 0 and operacionesOperacion[i] == False):
+                filas.append(["Recibo", clientesLista[operacionesCliente[i]], vendedoresLista[operacionesVendedor[i]], "$" + str(operacionesMonto[i])])
+            elif (filtro == 1 and operacionesOperacion[i] == True):
+                filas.append(["Factura", clientesLista[operacionesCliente[i]], vendedoresLista[operacionesVendedor[i]], "$" + str(operacionesMonto[i])])
+            elif (filtro == 2):
+                filas.append([("Factura" if operacionesOperacion[i] == True else "Recibo"), clientesLista[operacionesCliente[i]], vendedoresLista[operacionesVendedor[i]], "$" + str(operacionesMonto[i])])
+
+        crearTabla(columnas, filas)
+    else:
+        print(" Error: Debe cargar al menos una operación para visualizar el Total Operativo ".center(80, '-'))
+    
+    input("Presione Enter para continuar...")
