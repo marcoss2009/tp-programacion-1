@@ -86,17 +86,17 @@ def main():
     opcion = menu.mainMenu()
 
     while (opcion != 8):
-        #if (opcion == 1):
+        if (opcion == 1):
             # Carga de Clientes
-            #clientes.menuIngresoClientes(clientesLista, saldos)
+            clientes.menuIngresoClientes(clientesLista, consolidados)
 
         if (opcion == 2):
             # Carga de Operaciones
             operaciones.cargaOperaciones(operacionesCliente, operacionesVendedor, operacionesOperacion, operacionesMonto, vendedoresLista, clientesLista, consolidados)
 
-        #if (opcion == 3):
+        if (opcion == 3):
             # Consulta de Clientes
-            #clientes.menuConsultaClientes(clientesLista, saldos, operacionesLista, vendedoresLista)
+            clientes.menuConsultaClientes(consolidados, clientesLista)
 
         if (opcion == 4):
             # Consulta de Movimientos
@@ -106,8 +106,9 @@ def main():
             # Consulta de Cuentas Corrientes por Cliente
             operaciones.cuentasCorrientesClientes(operacionesCliente, operacionesOperacion, operacionesMonto, clientesLista)
 
-        #if (opcion == 6):
+        if (opcion == 6):
             # Consulta de Saldo de Ventas por Vendedor
+            vendedores.saldoVendedores(consolidados, vendedoresLista)
 
         if (opcion == 7):
             # Consulta del Total Operativo

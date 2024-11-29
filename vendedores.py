@@ -1,63 +1,39 @@
-def menuVendedores(vendedores,operaciones,clientes):
+def menuVendedores(vendedores,consolidados,clientes):
     print("5. Consulta de Cuentas Corrientes por Vendedor")
     vendedorBuscado = input("Ingrese el vendedor que desea buscar: ")
-    indiceValidacion = validarVendedor(vendedores,vendedorBuscado)
-    while indiceValidacion == -1:
-        vendedorBuscado = input("El vendedor ingresado no existe. Ingrese nuevamente: ")
-        indiceValidacion = validarVendedor(vendedores,vendedorBuscado)
+    while vendedorBuscado not in vendedores:
+        print("no se encontro el vendedor.")
+        vendedorBuscado = input("Ingrese el vendedor que desea buscar correctamente: ")
         
-
-    clienteLista = []
-    operacionesLista = []
-    saldoLista = []
+    indice_vendedor = vendedores.index(vendedorBuscado)
     
-    #operaciones = [cliente, vendedor, codigo, monto, operacion]
-    for operacion in operaciones:
-        cliente, vendedor, codigo, monto, tipo_operacion = operacion
-        
-        if vendedor == indiceValidacion:
-            if cliente not in clienteLista:
-                clienteLista.append(cliente)
-                saldo_inicial = monto if tipo_operacion == True else -monto
-                saldoLista.append(saldo_inicial)
-                operacionesLista.append([tipo_operacion])
-            else:
-                # Si el cliente ya está en la lista, actualizamos su saldo y operaciones
-                indice_cliente = clienteLista.index(cliente)
-                operacionesLista[indice_cliente].append(tipo_operacion)
-                
-                # Actualizar el saldo según el tipo de operación
-                if tipo_operacion == True:
-                    saldoLista[indice_cliente] += monto
-                elif tipo_operacion == False:
-                    saldoLista[indice_cliente] -= monto
-                    
-    print(f" Cuentas Corrientes del Vendedor: {vendedorBuscado} ".center(80, '-'))
-    if len(clienteLista) == 0:
-        print(" No hay movimientos para mostrar ".center(80, '-'))
-    else:
-        for i in range(len(clienteLista)):
-            facturas = 0
-            recibos = 0
-            for j in range(len(operacionesLista[i])):
-                if operacionesLista[i][j] == True:
-                    facturas = facturas + 1
-                elif operacionesLista[i][j] == False:
-                    recibos = recibos + 1
-                
-            print(f"Cliente: {clientes[clienteLista[i]]}")
-            print("cantidad de facturas: ",facturas)
-            print("cantidad de recibos: ",recibos)
-            print(f"Saldo total del cliente: ${saldoLista[i]}")
-            print("-" * 30)
-
     
+    print(f"Ventas del {vendedorBuscado} con cada cliente:")
+    cliente_index = 0
+    while cliente_index < len(consolidados):
+        cliente_numero = clientes[cliente_index]  # Número real del cliente
+        ventas = consolidados[cliente_index][indice_vendedor]
+        print(f"Cliente: {cliente_numero} - Saldo final: {ventas}")
+        cliente_index += 1
 
-def validarVendedor(legajos,buscado): #busqueda secuencial
-    n=len(legajos)-1
-    while n>-1 and legajos[n]!=buscado:
-        n=n-1
-    return n
+
+def saldoVendedores(consolidados, vendedores):
+    # Consulta de Saldo de Ventas por Vendedor
+    buscado = input("ingrese un vendedor: ")
+    while buscado not in vendedores:
+        print("El vendedor no existe")
+        buscado = input("ingrese un vendedor nuevamente: ")
+     
+    indiceBuscado = vendedores.index(buscado)  
+    suma = 0 
+    for i in range(len(consolidados)):
+        suma = suma + consolidados[i][indiceBuscado]
+                
+    print(f"el saldo del vendedor {buscado} es: {suma}")
+    
+            
+            
+
 
 
 
