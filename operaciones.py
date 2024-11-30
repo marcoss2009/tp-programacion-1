@@ -21,10 +21,10 @@ def cargaOperaciones(operacionesCliente, operacionesVendedor, operacionesOperaci
         
         cliente = int(input("Ingrese el código del cliente: "))
         # Comprobar cliente
-        clienteID = existeCliente(clientesLista, cliente)
+        clienteID = existeCliente(cliente, clientesLista)
         while clienteID == -1:
             cliente = int(input("Cliente inexistente. Ingrese el código del cliente: "))
-            clienteID = existeCliente(clientesLista, cliente)
+            clienteID = existeCliente(cliente, clientesLista)
         
         operacion = int(input("Ingrese 0 si esta operación es un recibo o 1 si es una factura: "))
         while operacion < 0 or operacion > 1:
@@ -60,16 +60,16 @@ def cuentasCorrientesClientes(operacionesCliente, operacionesOperacion, operacio
 
     print(" Cuentas Corrientes por Clientes ".center(80,'-'))
 
-    # Si la lista de operaciones está vacía entoncés qué vamos a leer?
+    # Si la lista de operaciones está vacía entonces qué vamos a leer?
     if (len(operacionesOperacion) > 0):
 
         cliente = int(input("Ingrese el código del cliente: "))
 
         # Comprobar cliente
-        clienteID = existeCliente(clientesLista, cliente)
+        clienteID = existeCliente(cliente, clientesLista)
         while clienteID == -1:
             cliente = int(input("Cliente inexistente. Ingrese el código del cliente: "))
-            clienteID = existeCliente(clientesLista, cliente)
+            clienteID = existeCliente(cliente, clientesLista)
 
         # Inicializamos las listas para imprimir la tabla
         filas = []
@@ -84,7 +84,7 @@ def cuentasCorrientesClientes(operacionesCliente, operacionesOperacion, operacio
 
         Si en algún momento algún registro nos coincide con el ID del cliente buscado
         buscamos el resto de los paramétros de la operación en las otras listas. Al ser listas hermanadas
-        entoncés podemos utilizar el mismo índice.
+        entonces podemos utilizar el mismo índice.
         '''''
         for i in range(len(operacionesCliente)):
             if operacionesCliente[i] == clienteID:
@@ -115,7 +115,7 @@ def calcularTotalOperativo(consolidados):
 
     print(" Total Operativo ".center(80,'-'))
 
-    # Si la matríz está vacía entoncés qué vamos a leer?
+    # Si la matríz está vacía entonces qué vamos a leer?
     if (len(consolidados) > 0):
         total = 0
 
@@ -161,6 +161,6 @@ def consultarMovimientos(operacionesCliente, operacionesVendedor, operacionesOpe
 
         crearTabla(columnas, filas)
     else:
-        print(" Error: Debe cargar al menos una operación para visualizar el Total Operativo ".center(80, '-'))
+        print(" Error: No hay movimientos cargados para consultar ".center(80, '-'))
     
     input("Presione Enter para continuar...")
