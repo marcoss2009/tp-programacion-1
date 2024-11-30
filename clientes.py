@@ -1,6 +1,13 @@
+import terminal
+
 def menuIngresoClientes(clientes, consolidados):
+    # Limpiamos la terminal
+    terminal.limpiarTerminal()
+
+    print(" Carga de Clientes ".center(80,'-'))
+
     # Solicita al usuario que ingrese un legajo
-    legajo = int(input("Ingrese un número de cliente: "))
+    legajo = int(input("Ingrese un número de cliente o -1 para volver al menú: "))
     
     # Mientras no sea -1, procesar los datos
     while legajo != -1:
@@ -14,25 +21,31 @@ def menuIngresoClientes(clientes, consolidados):
             print(" Cliente ingresado correctamente ".center(80, '-'))
         
         # Solicita al usuario que ingrese un nuevo legajo
-        legajo = int(input("Ingrese un número de cliente: "))
+        legajo = int(input("Ingrese un número de cliente o -1 para volver al menú: "))
 
 
 
 def menuConsultaClientes(consolidados, clientes):
-    print("3. Consulta de Cliente")
+    # Limpiamos la terminal
+    terminal.limpiarTerminal()
+
+    print(" Consulta de Cliente ".center(80,'-'))
     
-    buscado = int(input("ingrese un numero de cliente: "))
-    while buscado not in clientes:
-        print("El cliente no existe")
-        buscado = int(input("ingrese un numero de cliente: "))
+    # Si la lista de clientes está vacía entonces no podemos buscar nada
+    if (len(clientes) > 0):
+        buscado = int(input("Ingrese un número de cliente: "))
+        while buscado not in clientes:
+            print("El cliente no existe")
+            buscado = int(input("Ingrese un número de cliente: "))
+            
+        indice = clientes.index(buscado)
         
-    indice = clientes.index(buscado)
+        resultado = sum(consolidados[indice])
+        
+        print(f"El saldo final del cliente es ${resultado}")
+    else:
+        print(" Error: No hay clientes cargados para consultar ".center(80, '-'))
     
-    resultado = sum(consolidados[indice])
-    
-    print(f"El saldo final del cliente es ${resultado}")
-
-
-
+    input("Presione Enter para continuar...")
 
 existeCliente = lambda buscado, clientesLista: clientesLista.index(buscado) if buscado in clientesLista else -1

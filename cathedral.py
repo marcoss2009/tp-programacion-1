@@ -5,76 +5,19 @@ import operaciones
 import login
 import menu
 import terminal
-    
+
 def main():
     # Listas
     vendedoresLista = ["usuario1", "usuario2", "usuario3", "usuario4"]
     claves = [1234, 5678, 9012, 3456]
 
-    clientesLista = [1000, 1001, 1002, 1003] # 1000, 1001, 1002, 1003
+    clientesLista = []
+    consolidados = []
 
-    consolidados = [
-        [-1000, 1000, 1000, 2500],
-        [1500, 1400, -900, -1500],
-        [-1000, 0, 0, 0],
-        [0, 0, -1800, 1800]
-    ] # Mátriz
-
-    operacionesCliente = [
-        0,
-        0,
-        0,
-        0,
-        1,
-        1,
-        1,
-        1,
-        2,
-        3,
-        3
-    ]
-
-    operacionesVendedor = [
-        0,
-        1,
-        2,
-        3,
-        0,
-        1,
-        2,
-        3,
-        0,
-        2,
-        3
-    ]
-
-    operacionesOperacion = [
-        True,
-        False,
-        False,
-        False,
-        False,
-        False,
-        True,
-        True,
-        True,
-        True,
-        False
-    ] # True, False
-
-    operacionesMonto = [
-        1000,
-        1000,
-        1000,
-        2500,
-        1500,
-        1400,
-        900,
-        1500,
-        1000,
-        1800,
-        1800
-    ] # Montos
+    operacionesCliente = []
+    operacionesVendedor = []
+    operacionesOperacion = []
+    operacionesMonto = []
     
     # Limpiamos la terminal
     terminal.limpiarTerminal()
